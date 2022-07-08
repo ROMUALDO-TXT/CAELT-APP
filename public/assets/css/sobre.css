@@ -1,0 +1,83 @@
+  /*caracteristicas gerais*/
+
+  body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+  }
+
+  .hero {
+    width: 100%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-color: #09072b;
+    background-repeat: no-repeat;
+    background-position-x: -100px;
+    background-position-y: -577px;
+    background-image: url(../img/background.png);
+  }
+
+  h1 {
+    font-size: 70px;
+    font-weight: 400;
+    text-align: center;
+    color: #F2EDED;
+    letter-spacing: 1px;
+  }
+
+  .container {
+    margin-top: 3%;
+    width: 80%;
+  }
+
+  #eltinho {
+    width: 200px;
+    margin: 3% auto;
+  }
+
+  #eltinho img {
+    width: 140px;
+    height: 202px;
+  }
+
+  #logotipo_elt img {
+    width: 150px;
+    height: 150px;
+  }
+
+  #logotipo_elt {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 3% auto;
+  }
+
+  figure {
+    background-color: #F2EDED;
+    border: 1px solid #ccc;
+    /*outros tipos de bordas: dashed, dotted, double, groove, etc*/
+    text-align: center;
+    padding: 15px;
+    margin: 30px;
+    box-shadow: 0 0 8px #000;
+
+  }
+
+  figcaption {
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  .texto {
+    font-size: 15px;
+    text-align: justify;
+    color: black;
+    padding: 5px;
+    line-height: 1.5;
+    text-indent: 15px;
+    font-weight: 400;
+  }
+
+  .icone {
+    margin: 0px auto;
+    padding: 35px;
+    width: 80px;
+  }

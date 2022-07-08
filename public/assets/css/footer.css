@@ -1,0 +1,18 @@
+footer {
+    border-top: 2px solid rgb(236, 235, 235);
+    background-color: rgb(241, 241, 241);
+    font-size: medium;
+    color: black;
+    text-decoration-color: black;
+    padding: 1% 12%;
+}
+
+.social{
+    text-align: center;
+}
+.social-icon{
+    text-decoration: none;
+    color: black;
+    font-size: 36px;
+    margin: 5px;
+}

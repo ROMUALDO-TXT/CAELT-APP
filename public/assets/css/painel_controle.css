@@ -1,0 +1,90 @@
+
+#img_painel{
+    width: 72px;
+    height: 72px;
+    display: inline-block;
+    background-image: url("../includes/img/exemplo.png");
+}
+
+#img_painel[name*="consultarAlunos"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/consultar_alunos.png");
+}
+
+#img_painel[name*="requerimentoMaterial"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/requerimento_material.png");
+}
+
+#img_painel[name*="requerimentoAcesso"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/destaques.png");
+}
+
+#img_painel[name*="certificados"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/certificados.png");
+}
+
+#img_painel[name*="atas"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/ata.png");
+}
+
+#img_painel[name*="adicionar_noticia"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/adicionar_noticia.png");
+}
+
+
+#img_painel[name*="solicitacoes"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/solicitacoes.png");
+}
+
+#img_painel[name*="relacao_financas"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/relacao_financas.png");
+}
+
+#img_painel[name*="documentos"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/documentos.png");
+}
+
+#img_painel[name*="calendario"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/calendario.png");
+}
+
+#img_painel[name*="criar_evento"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/criar_evento.png");
+}
+
+#img_painel[name*="enviar_mensagem"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/enviar_mensagem.png");
+}
+
+#img_painel[name*="editar_baseDados"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/editar_baseDados.png");
+}
+
+#img_painel[name*="configuracoes_sistema"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/configuracoes_sistema.png");
+}
+
+#img_painel[name*="minhas_tarefas"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/minhas_tarefas.png");
+}
+
+#img_painel[name*="representantes"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/representantes.png");
+}
+#img_painel[name*="minhas_materias"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/minhas_materias.png");
+}
+#img_painel[name*="meus_grupos"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/meus_grupos.png");
+}
+#img_painel[name*="meus_dados"]{
+    background-image: url("http://caelt.unifei.edu.br/includes/img/meus_dados.png");
+}
+
+
+
+
+
+body{
+    /**background-color: #3498db;**/
+}
+

@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.painelbase {
+  width: 86%;
+  text-align: center  ;
+  padding-top: 9%;
+  margin: auto;
+  padding: 40px 40px 0px 40px;
+}
+.jumbotron{
+  background-color: white;
+  box-shadow: 0 0 1em thistle;
+}
+
+.hero {
+    width: 100%;
+    padding-top: 9%;
+    padding-bottom: 9%;
+    background-color: #09072b;
+    background-repeat: no-repeat;
+    background-position-x: -100px;
+    background-position-y: -577px;
+    background-image: url(../img/background.png);
+    height: 330px;
+    margin: 0;
+    padding: 40px;
+    top: 0;
+    box-shadow: 0 0 1em thistle;
+}
+
+.home-logo {
+  margin-left:50px;
+}
+
+.social-hero{
+  margin-top: 50px;
+  margin-left: 58px;
+  color:white;
+}
+.social-hero-icon{
+  text-decoration: none;
+  font-size: 40px;
+  color: white;
+}
+
+
+.jumbotron.painelEletronica{
+  padding:0 0;
+  padding-bottom: 48px;
+}
+
+.painelEletronica img{
+  width: 100%; 
+  border-top: 1px solid thistle ;
+  border-top-left-radius: 1%;
+  border-top-right-radius: 1%;
+  clip-path: inset(0px 0px);
+}
+
+.eletronica{
+  padding: 48px 60px;
+  text-align: left;
+}
+
+.database{
+  text-align: left;
+}
+.faqLogo{
+  margin: auto auto;
+  text-align: center;
+}
+.painelFAQ{
+  width: 80%;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 1em thistle;
+  background: linear-gradient(#02beff,#054e8a); 
+}
+.faqForm{
+  padding:30px;
+  background-color: white;
+}
+
+
+
+.btn{
+  margin-top: 25px;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .hero {
+    height: 250px;
+  }
+  .home-logo{
+    margin:0;
+  }
+  .social-hero-icon{
+    font-size: 0px;
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .body{
+    font-size: 10px;
+  }
+  .hero {
+    height: 220px;
+  }
+  .container.painelbase{
+    margin: auto;
+    margin-top: 18px;
+    padding: 0%;
+  }
+  .jumbotron{
+    float: center;
+    width: 100%;
+  }
+  .eletronica{
+    padding: 30px 15px;
+  }
+
+}
+
+@media only screen and (max-width: 460px) {
+  .hero {
+    height: 150px;
+  }
+
+}
