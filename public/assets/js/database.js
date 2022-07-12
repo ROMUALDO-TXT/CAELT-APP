@@ -1,8 +1,30 @@
 
-const btn_pesquisaPadrao = document.querySelector("#btn_pesquisaPadrao");
+const btn_pesquisaPadrao = document.getElementById("btn_pesquisaPadrao");
+const btn_pesquisaAvancada = document.getElementById("btn_pesquisaPadrao")
+const rd_pesquisaPadrao = document.getElementById("rd_pesquisaPadrao");
+const rd_pesquisaAvancada = document.getElementById("rd_pesquisaAvancada");
+const sa_pesquisaPadrao = document.getElementById("sa_pesquisaPadrao");
+const sa_pesquisaAvancada= document.getElementById("sa_pesquisaAvancada");
 
-btn_pesquisaPadrao.addEventListener("click", pesquisaPadrao());
+function test(){
+    alert("AAAAAAAAAAAAAAAAAAAAAAAAAABA")
+}
 
+document.getElementById("rd_pesquisaAvancada").addEventListener('change', (event) => {
+    console.log('aaaaa')
+
+    if (rd_pesquisaAvancada.checked == 'checked'){
+        sa_pesquisaPadrao.style.visibility = "hidden";
+        sa_pesquisaAvancada.style.visibility = "visible";
+    }
+});
+
+rd_pesquisaPadrao.addEventListener('change', (event) => {
+    if (rd_pesquisaPadrao.checked == 'checked'){
+        sa_pesquisaAvancada.style.visibility = "hidden";
+        sa_pesquisaPadrao.style.visibility = "visible";
+    }
+});
 
 
 function pesquisaAvancada_blocos(tipo, tema, titulo, autor, materia, professor, blc) {
@@ -104,104 +126,6 @@ function pesquisaAvancada_tabela(tipo, tema, titulo, autor, materia, professor, 
 
         }
     });
-
-}
-
-
-function pesquisaPadrao(valor, tbl, blc, indice) {
-
-    //indice=1 representa bloco
-    if (indice == 1) {
-        $('#' + blc).empty();
-        var codigo = '001';
-        // var msg = <? php echo $msg; ?>;
-        var dados;
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            url: '/includes/js/ajax/api_Database2.php',
-            //async: false,
-            data: {
-                'codigo': codigo,
-                'valor': valor,
-                'msg': msg
-            },
-            beforeSend: function () {
-
-                //Limpa a tabela
-                $('#accordion').empty();
-
-            },
-            success: function (data) {
-                dados = data;
-
-            },
-            complete: function () {
-
-                //Limpa a tabela
-                $('#' + blc).empty();
-
-                $("#msg").empty();
-                $("#msg").show(500);
-                //Resultado da busca
-                $("#msg").append('<p>Itens encontrados: <b>' + dados.length + '</b></p>');
-
-                //Carrega a tabela
-                for (var i = 0; dados.length > i; i++) {
-                    $('#accordion').append('<div class="panel panel-default"><div class="panel-heading" role="tab" id="heading' + dados[i].id + '"><h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse' + dados[i].id + '" aria-expanded="false" aria-controls="collapse' + dados[i].id + '">' + dados[i].disciplina + ' - ' + dados[i].titulo + '</a></h4></div><div id="collapse' + dados[i].id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + dados[i].id + '"><div class="panel-body"><div class="row"><div class="col-md-3"><p><b>ID:</b> ' + dados[i].id + '</p></div><div class="col-md-3"><p><b>Tipo:</b> ' + dados[i].tipo + '</p></div><div class="col-md-3"><p><b>Tema:</b> ' + dados[i].tema + '</p></div></div><div class="row"><div class="col-md-3"><p><b>Disciplina:</b> ' + dados[i].disciplina + '</p></div><div class="col-md-3"><p><b>Professor:</b> ' + dados[i].nomeProfessor + '</p></div><div class="col-md-3"><p><b>Autor:</b> ' + dados[i].autor + '</p></div></div><div class="row"><div class="col-md-3"><p><b>Postado por:</b> ' + dados[i].postadoPor + '</p></div><div class="col-md-3"><p><a class="btn" href= "https://caelt.unifei.edu.br/uploads/' + dados[i].endereco + ' " target = \"_blank\" id = \"btn_ver\"><span class=\"glyphicon glyphicon-arrow-down\"></span></a></p></div></div><div class="row"><div class="col-md-12"><p><b>Observações: </b>' + dados[i].obs + '</p></div></div></div></div></div>');
-                }
-
-            }
-        });
-    }
-
-    //indice=2 representa tabela
-    if (indice == 2) {
-        $('#' + tbl).empty();
-        var codigo = '001';
-        // var msg = <? php echo $msg; ?>;
-        var dados;
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            url: '/includes/js/ajax/api_Database2.php',
-            //async: false,
-            data: {
-                'codigo': codigo,
-                'valor': valor,
-                'msg': msg
-            },
-            beforeSend: function () {
-
-                //Limpa a tabela
-                $('#accordion').empty();
-
-            },
-            success: function (data) {
-
-                dados = data;
-
-            },
-            complete: function () {
-
-                //Limpa a tabela
-                $('#' + tbl).empty();
-
-                $("#msg").empty();
-                $("#msg").show(500);
-                //Resultado da busca
-                $("#msg").append('<p>Itens encontrados: <b>' + dados.length + '</b></p>');
-
-                //Carrega a tabela
-                for (var i = 0; dados.length > i; i++) {
-                    $('#' + tbl).append('<tr id = \"tbl_pesquisa_linha\"><td data-id= "' + dados[i].id + '">' + dados[i].titulo + '</td><td>' + dados[i].disciplina + '</td><td>' + dados[i].nomeProfessor + '</td><td>' + dados[i].autor + '</td><td><a class="btn" href= "http://https://caelt.unifei.edu.br/uploads/' + dados[i].endereco + ' " target = \"_blank\" id = \"btn_ver\"><span class=\"glyphicon glyphicon-arrow-down\"></span></a></td><td><button class="btn btn-info" id = \"btn_info\"><span class=\"glyphicon glyphicon-info-sign\"></span></button></tr>');
-                }
-
-            }
-        });
-    }
-
-
 }
 
 function select(campo, codigo) {
@@ -236,55 +160,6 @@ select("tema_selecionado", "005");
 select("materia_selecionada", "003");
 //Carrega os nomes (apelidos) dos professores cadastrados
 select("professor_selecionado", "006");
-
-$("#rd_pesquisaAvancada").change(function () {
-    if ($(this).is(':checked')) {
-        $("#bl_pesquisaPadrao").hide(500);
-        $("#bl_pesquisaAvancada").show(500);
-    }
-});
-
-$("#rd_pesquisaPadrao").change(function () {
-    if ($(this).is(':checked')) {
-        $("#bl_pesquisaAvancada").hide(500);
-        $("#bl_pesquisaPadrao").show(500);
-    }
-});
-
-function pesquisaPadrao() {
-    if ($("#rd_pesquisaTabela").is(':checked')) {
-
-        //Pega o valor dos filtros
-        var valor = $("#cp_pesquisaPadrao").val();
-
-        //Limpa os blocos
-        $("#accordion").empty();
-
-        //Limpa a tabela e a torna visível
-        $("#tbl_resultado").empty();
-        $("#bl_tabela").show(500);
-
-        //Invoca função que realiza a pesquisa
-        pesquisaPadrao(valor, "tbl_resultado", "accordion", "2");
-
-    } else {
-
-        //Pega o valor dos filtros
-        var valor = $("#cp_pesquisaPadrao").val();
-
-        //Limpa a tabela e a torna invisível caso visível
-        $("#tbl_resultado").empty();
-        $("#bl_tabela").hide(500);
-
-        //Limpa os blocos
-        $("#accordion").empty();
-
-        //Invoca função que realiza a pesquisa
-        pesquisaPadrao(valor, "tbl_resultado", "accordion", "1");
-    }
-};
-
-
 
 
 

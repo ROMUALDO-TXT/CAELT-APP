@@ -36,7 +36,7 @@ if(isset($_SESSION['cpf'])){
         </button>
         <div class="navbar-brand">
           <a class="logo" href="https://caelt.unifei.edu.br">
-            <img src="public/assets/img/logo_titulo.png" width="45" height="45" alt="caelt">  
+            <img src="https://caelt.unifei.edu.br/includes/img/logo_titulo.png" width="45" height="45" alt="caelt">  
             CAELT
           </a>
         </div>

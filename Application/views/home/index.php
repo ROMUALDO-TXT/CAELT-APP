@@ -21,7 +21,7 @@ error_reporting(0);
     <link rel="stylesheet" type="text/css" href="public/assets/css/home.css">
     <link rel="stylesheet" type="text/css" href="public/assets/css/header.css">
     <link rel="stylesheet" type="text/css" href="public/assets/css/footer.css">
-    <script type="text/javascript" src="includes/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="public/assets/js/jquery-3.2.1.min.js"></script>
 </head>
 
 

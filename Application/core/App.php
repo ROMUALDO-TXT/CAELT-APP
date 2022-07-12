@@ -1,95 +1,95 @@
 <?php
 
-namespace Application\core;
 
-
-/**
-* Esta classe é responsável por obter da URL o controller, método (ação) e os parâmetros
-* e verificar a existência dos mesmo.
-*/
 class App
 {
-  protected $controller = 'Home';
-  protected $method = 'index';
-  protected $page404 = false;
-  protected $params = [];
+  /** @var null The controller */
+  private $url_controller = null;
 
-  // Método construtor
+  /** @var string The method (of the above controller), often also named "action" */
+  private $url_action = '';
+
+  /** @var null Parameter one */
+  private $url_parameter_1 = null;
+
+  /** @var null Parameter two */
+  private $url_parameter_2 = null;
+
+  /** @var null Parameter three */
+  private $url_parameter_3 = null;
+
+  /**
+   * "Start" the application:
+   * Analyze the URL elements and calls the according controller/method or the fallback
+   */
   public function __construct()
   {
-    $URL_ARRAY = $this->parseUrl();
-    $this->getControllerFromUrl($URL_ARRAY);
-    $this->getMethodFromUrl($URL_ARRAY);
-    $this->getParamsFromUrl($URL_ARRAY);
+    // create array with URL parts in $url
+    $this->splitUrl();
 
-    // chama um método de uma classe passando os parâmetros
-    call_user_func_array([$this->controller, $this->method], $this->params);
-  }
+    // check for controller: does such a controller exist ?
+    if (file_exists('Application/controllers/' . $this->url_controller . '.php')) {
 
-  /**
-  * Este método pega as informações da URL (após o dominio do site) e retorna esses dados
-  *
-  * @return array
-  */
-  private function parseUrl()
-  {
-    $REQUEST_URI = explode('/', substr(filter_input(INPUT_SERVER, 'REQUEST_URI'), 1));
-    return $REQUEST_URI;
-  }
+      // if so, then load this file and create this controller
+      // example: if controller would be "car", then this line would translate into: $this->car = new car();
+      require 'Application/controllers/' . $this->url_controller . '.php';
+      $this->url_controller = new $this->url_controller();
 
-  /**
-  * Este método verifica se o array informado possui dados na psoição 0 (controlador)
-  * caso exista, verifica se existe um arquivo com aquele nome no diretório Application/controllers
-  * e instancia um objeto contido no arquivo, caso contrário a variável $page404 recebe true.
-  *
-  * @param  array  $url   Array contendo informações ou não do controlador, método e parâmetros
-  */
-  private function getControllerFromUrl($url)
-  {
-    if ( !empty($url[0]) && isset($url[0]) ) {
-      if ( file_exists('./Application/controllers/' . ucfirst($url[0])  . '.php') ) {
-        $this->controller = ucfirst($url[0]);
+      // check for method: does such a method exist in the controller ?
+      if (method_exists($this->url_controller, $this->url_action)) {
+
+        // call the method and pass the arguments to it
+        if (isset($this->url_parameter_3)) {
+          // will translate to something like $this->home->method($param_1, $param_2, $param_3);
+          $this->url_controller->{$this->url_action}($this->url_parameter_1, $this->url_parameter_2, $this->url_parameter_3);
+        } elseif (isset($this->url_parameter_2)) {
+          // will translate to something like $this->home->method($param_1, $param_2);
+          $this->url_controller->{$this->url_action}($this->url_parameter_1, $this->url_parameter_2);
+        } elseif (isset($this->url_parameter_1)) {
+          // will translate to something like $this->home->method($param_1);
+          $this->url_controller->{$this->url_action}($this->url_parameter_1);
+        } else {
+          // if no parameters given, just call the method without parameters, like $this->home->method();
+          $this->url_controller->{$this->url_action}();
+        }
       } else {
-        $this->page404 = true;
+        // default/fallback: call the index() method of a selected controller
+        $this->url_controller->index();
       }
-    }
-
-    require './Application/controllers/' . $this->controller . '.php';
-    $this->controller = new $this->controller();
-
-  }
-
-  /**
-  * Este método verifica se o array informado possui dados na psoição 1 (método)
-  * caso exista, verifica se o método existe naquele determinado controlador
-  * e atribui a variável $method da classe.
-  *
-  * @param  array  $url   Array contendo informações ou não do controlador, método e parâmetros
-  */
-  private function getMethodFromUrl($url)
-  {
-    if ( !empty($url[1]) && isset($url[1]) ) {
-      if ( method_exists($this->controller, $url[1]) && !$this->page404) {
-        $this->method = $url[1];
-      } else {
-        // caso a classe ou o método informado não exista, o método pageNotFound
-        // do Controller é chamado.
-        $this->method = 'pageNotFound';
-      }
+    } else {
+      // invalid URL, so simply show home/index
+      require 'Application/controllers/Home.php';
+      $home = new Home();
+      $home->index();
     }
   }
 
   /**
-  * Este método verifica se o array informador possui a quantidade de elementos maior que 2
-  * ($url[0] é o controller e $url[1] o método/ação a executar), caso seja, é atrbuido
-  * a variável $params da classe um novo array  apartir da posição 2 do $url
-  *
-  * @param  array  $url   Array contendo informações ou não do controlador, método e parâmetros
-  */
-  private function getParamsFromUrl($url)
+   * Get and split the URL
+   */
+  private function splitUrl()
   {
-    if (count($url) > 2) {
-      $this->params = array_slice($url, 2);
+    if (isset($_GET['url'])) {
+
+      // split URL
+      $url = rtrim($_GET['url'], '/');
+      $url = filter_var($url, FILTER_SANITIZE_URL);
+      $url = explode('/', $url);
+
+      // Put URL parts into according properties
+      // By the way, the syntax here is just a short form of if/else, called "Ternary Operators"
+      // @see http://davidwalsh.name/php-shorthand-if-else-ternary-operators
+      $this->url_controller = (isset($url[0]) ? $url[0] : null);
+      $this->url_action = (isset($url[1]) ? $url[1] : '');
+      $this->url_parameter_1 = (isset($url[2]) ? $url[2] : null);
+      $this->url_parameter_2 = (isset($url[3]) ? $url[3] : null);
+      $this->url_parameter_3 = (isset($url[4]) ? $url[4] : null);
+
+      // echo 'Controller: ' . $this->url_controller . '<br />';
+      // echo 'Action: ' . $this->url_action . '<br />';
+      // echo 'Parameter 1: ' . $this->url_parameter_1 . '<br />';
+      // echo 'Parameter 2: ' . $this->url_parameter_2 . '<br />';
+      // echo 'Parameter 3: ' . $this->url_parameter_3 . '<br />';
     }
   }
 }
