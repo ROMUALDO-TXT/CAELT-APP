@@ -1,24 +1,36 @@
 <?php
 
-
-
 class Database extends Controller
 {
-  /*
-  * chama a view index.php do  /home   ou somente   /
-  */
 
   public function index()
   {
     $data = array();
 
     $materials_model = $this->loadModel('Materials');
-    if(isset($_GET["search"])){
-        $value = $_GET["search_value"];
-        $value = "%.$value.%";
-        //$data = $materials_model->findMaterials($value);
-
-        array_push( $data, (object)[
+    if (isset($_GET["search"])) {
+      if (isset($_GET["search_method"])) {
+        switch ($_GET["search_method"]) {
+          case "normal":
+            $value = $_GET["search_value"];
+            $value = "%.$value.%";
+            //$data = $materials_model->findMaterials($value);
+            echo "normal";
+            break;
+          case "advanced":
+            $params = (object) [
+              'name' => "%" . $_GET["search_name"] . "%",
+              'theme' => "%" . $_GET["search_theme"] . "%",
+              'type' => "%" . $_GET["search_type"] . "%",
+              'author' => "%" . $_GET["search_author"] . "%",
+              'subject' => $_GET["search_subject"],
+              'teacher' => $_GET["search_teacher"],
+            ];
+            echo "advanced";
+            //$data = $materials_model->findMaterialsFilter($params);
+            break;
+        }
+        array_push($data, (object)[
           "id" => 1,
           "name" => "teste",
           "type" => "CADERNO",
@@ -28,7 +40,7 @@ class Database extends Controller
           "teacher" => "professor teste",
           "link" => "teste",
         ]);
-        array_push( $data, (object)[
+        array_push($data, (object)[
           "id" => 2,
           "name" => "teste2",
           "type" => "CADERNO2",
@@ -38,26 +50,9 @@ class Database extends Controller
           "teacher" => "professor teste2",
           "link" => "teste2",
         ]);
+      }
 
-        echo $data[1]->id;
     }
     require "Application/views/database/index.php";
-  
   }
 }
-// class MaterialsController{
-
-
-//     public function 
-// }
-// //params for simple search
-// $value = "%.$value.%";
-// //params for filter serch
-// $params = (object) [
-//             'name' => "%" . $name . "%",
-//             'theme' => "%" . $theme . "%",
-//             'type' => "%" . $type . "%",
-//             'author' => "%" . $author . "%",
-//             'subject' => $idSubject,
-//             'teacher' => $idTeacher,
-//         ]; 

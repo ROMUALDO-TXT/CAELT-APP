@@ -48,39 +48,63 @@
 
             <div class="panel-heading"><span class="fa fa-search-plus"></span> Pesquisa Avançada</div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3" style="margin-bottom: 5px;">
-                        <label for="tipo"><span class="glyphicon glyphicon-filter"></span> Tipo:</label>
-                        <select name="tipo" id="tipo_selecionado" class="form-control"></SELECT>
+                <form action="../../CAELT-APP/database/index" method="GET">
+                    <input type="text" name="search_method" value="advanced" readonly hidden />
+                    <div class="row form-row">
+                        <div class="form-group col-4" style="margin-bottom: 5px;">
+                            <label for="search_name">Título:</label>
+                            <input type="text" name="search_name" id="search_name" placeholder="Informe o título do material" class="form-control">
+                        </div>
+                        <div class="form-group col-4" style="margin-bottom: 5px;">
+                            <label for="search_theme">Tema:</label>
+                            <input name="search_theme" id="search_theme" placeholder="Informe o tema do material" class="form-control">
+                        </div>
+                        <div class="form-group col-4" style="margin-bottom: 5px;">
+                            <label for="search_author">Autor:</label>
+                            <input type="text" name="search_author" id="search_author" placeholder="Informe o nome do autor do material" class="form-control">
+                        </div>
                     </div>
-                    <div class="col-md-3" style="margin-bottom: 5px;">
-                        <label for="tema"><span class="glyphicon glyphicon-filter"></span> Tema:</label>
-                        <SELECT name="tema" id="tema_selecionado" class="form-control"></SELECT>
+                    <div class="row form-row">
+                        <div class="form-group col-4" style="margin-bottom: 5px;">
+                            <label for="search_type"> Tipo:</label>
+                            <SELECT name="search_type" id="search_type" class="form-control">
+                                <option value="" selected>Selecione o tipo de material</option>
+                                <?php
+                                    foreach ($types as $type) {
+                                        echo '<option value="'.$type.'" selected>'.$type.'</option>';
+                                    }
+                                ?>
+                            </SELECT>
+                        </div>
+                        <div class="form-group col-4" style="margin-bottom: 5px;">
+                            <label for="search_subject">Matéria:</label>
+                            <SELECT name="search_subject" id="search_subject" class="form-control">
+                            <option value="" selected>Selecione a matéria</option>
+                                <?php
+                                    foreach ($subjects as $subject) {
+                                        echo '<option value="'.$subject->id.'" selected>'.$subject->name.'</option>';
+                                    }
+                                ?>
+                            </SELECT>
+                        </div>
+                        <div class="form-group col-4" style="margin-bottom: 5px;">
+                            <label for="search_teacher">Professor:</label>
+                            <SELECT name="search_teacher" id="search_teacher" class="form-control">
+                            <option value="" selected>Selecione o professor</option>
+                                <?php
+                                    foreach ($teachers as $teacher) {
+                                        echo '<option value="'.$teacher->id.'" selected>'.$teacher->name.'</option>';
+                                    }
+                                ?>
+                            </SELECT>
+                        </div>
                     </div>
-                    <div class="col-md-3" style="margin-bottom: 5px;">
-                        <label for="titulo"><span class="glyphicon glyphicon-filter"></span> Título:</label>
-                        <input type="text" name="titulo" id="titulo_selecionado" class="form-control">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-5">
+                            <input type="submit" name="search" id="btn_pesquisaPadrao" data-loading-text="Loading..." class="btn btn-primary" value="Pesquisar" />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3" style="margin-bottom: 5px;">
-                        <label for="autor"><span class="glyphicon glyphicon-filter"></span> Autor:</label>
-                        <input type="text" name="autor" id="autor_selecionado" placeholder="Digite um nome..." class="form-control">
-                    </div>
-                    <div class="col-md-3" style="margin-bottom: 5px;">
-                        <label for="materia"><span class="glyphicon glyphicon-filter"></span> Matéria:</label>
-                        <SELECT name="materia" id="materia_selecionada" class="form-control"></SELECT>
-                    </div>
-                    <div class="col-md-3" style="margin-bottom: 5px;">
-                        <label for="professor"><span class="glyphicon glyphicon-filter"></span> Professor:</label>
-                        <SELECT name="professor" id="professor_selecionado" class="form-control"></SELECT>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 15px;">
-                    <div class="col-md-5">
-                        <button id="btn_pesquisar" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off"><i class="icon-search icon-white"></i> Pesquisar</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -88,8 +112,12 @@
             <div class="panel-heading"><span class="fa fa-search"></span> Pesquisa Padrão</div>
             <div class="panel-body">
                 <form action="../../CAELT-APP/database/index" method="GET">
-                    <input type="text" name="search_method" value="normal" disabled hidden />
-                    <input type="text" name="search_value" class="form-control input-lg" placeholder="Pesquise por disciplina, docente, título, autor..." id="input_pesquisaPadrao">
+                    <input type="text" name="search_method" value="normal" readonly hidden >
+                    <div class="row form-row">
+                        <div class="form-group col-12">
+                            <input type="text" name="search_value" class="form-control input-lg" placeholder="Pesquise por disciplina, docente, título, autor..." id="input_pesquisaPadrao">
+                        </div>
+                    </div>
                     <input type="submit" name="search" id="btn_pesquisaPadrao" data-loading-text="Loading..." class="btn btn-primary" value="Pesquisar" />
                 </form>
             </div>
@@ -98,7 +126,7 @@
 
         <!--Opções de apresentação da pesquisa-->
         <?php
-        if (isset($data)) {
+        if (isset($data[0]->id)) {
             echo '<div class="btn-group" data-toggle="buttons" style="margin-bottom: 15px;">
             <label class="btn btn-default active">
                 <input type="radio" name="options" id="rd_displayBloco" autocomplete="off"> Blocos
@@ -117,18 +145,18 @@
             <?php
             foreach ($data as $material) {
                 echo '<div class="panel panel-default">';
-                echo '<div class="panel-heading" role="tab" id="heading'.$material->id.'">';
-                echo '<h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'.$material->id.'" aria-expanded="false" aria-controls="collapse'.$material->id.'">';
-                echo $material->subject .' - '. $material->name;
-                echo '</a></h4></div><div id="collapse'.$material->id.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'.$material->id.'">';
-                echo '<div class="panel-body"><div class="row"><div class="col-md-3"><p><b>ID:</b> '.$material->id.'</p></div>';
-                echo '<div class="col-md-3"><p><b>Tipo:</b> '.$material->type.'</p></div>';
-                echo '<div class="col-md-3"><p><b>Tema:</b> '.$material->theme.'</p></div></div>';
-                echo '<div class="row"><div class="col-md-3"><p><b>Disciplina:</b> '.$material->subject.'</p></div>';
-                echo '<div class="col-md-3"><p><b>Professor:</b> '.$material->teacher.'</p></div>';
-                echo '<div class="col-md-3"><p><b>Autor:</b> '.$material->author.'</p></div>';
+                echo '<div class="panel-heading" role="tab" id="heading' . $material->id . '">';
+                echo '<h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse' . $material->id . '" aria-expanded="false" aria-controls="collapse' . $material->id . '">';
+                echo $material->subject . ' - ' . $material->name;
+                echo '</a></h4></div><div id="collapse' . $material->id . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' . $material->id . '">';
+                echo '<div class="panel-body"><div class="row"><div class="col-md-3"><p><b>ID:</b> ' . $material->id . '</p></div>';
+                echo '<div class="col-md-3"><p><b>Tipo:</b> ' . $material->type . '</p></div>';
+                echo '<div class="col-md-3"><p><b>Tema:</b> ' . $material->theme . '</p></div></div>';
+                echo '<div class="row"><div class="col-md-3"><p><b>Disciplina:</b> ' . $material->subject . '</p></div>';
+                echo '<div class="col-md-3"><p><b>Professor:</b> ' . $material->teacher . '</p></div>';
+                echo '<div class="col-md-3"><p><b>Autor:</b> ' . $material->author . '</p></div>';
                 echo '</div><div class="row"><div class="col-md-3"><p><b>Postado por:</b></p></div>';
-                echo '<div class="col-md-3"><p><a class="btn" href= "https://caelt.unifei.edu.br/uploads/'.$material->link.' " target = "blank">'; 
+                echo '<div class="col-md-3"><p><a class="btn" href= "https://caelt.unifei.edu.br/uploads/' . $material->link . ' " target = "blank">';
                 echo '<span class="fa fa-arrow-down"></span></a></p></div></div>';
                 echo '<div class="row"><div class="col-md-12"><p><b>Observações: </b></p></div></div></div>';
                 echo '</div></div>';
@@ -148,7 +176,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbl_resultado">
-                    <?php foreach($data as $material){?>
+                    <?php foreach ($data as $material) { ?>
                         <tr data-id=<?php echo $material->id; ?>>
                             <td><?php echo $material->subject; ?></td>
                             <td><?php echo $material->theme; ?></td>
@@ -161,11 +189,11 @@
                                 </a>
                             </td>
                         </tr>
-                        <?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
-    
+
 
     </div>
     <?php
